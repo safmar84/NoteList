@@ -1,0 +1,25 @@
+{
+  "name": "NoteList",
+  "authors": [
+    "safmar84@gmail.com <safmar84@gmail.com>"
+  ],
+  "description": "Simple application for notes.",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.5.5",
+    "gulp": "^3.9.1",
+    "bootstrap": "^3.3.6",
+    "angular-ui-router": "ui-router#^0.2.18",
+    "protractor": "^3.3.0"
+  }
+}
