@@ -1,0 +1,10 @@
+/* NOT BOOTSTRAP CSS */
+
+/* for rebound body under top bar */
+body {
+    padding-top: 100px;
+}
+.language-button {
+	margin-top: 10px; 
+	margin-right: 10px;
+}

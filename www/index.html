@@ -1,0 +1,80 @@
+<!doctype html>
+<html ng-app="noteListApp" lang="cs">
+    <head>
+    	<meta charset="utf-8">
+    	<title>{{ 'TITLE' | translate }}</title>
+	   	<meta name="description" content="">
+		<meta name="viewport" content="initial-scale=1, width=device-width">
+
+		<!-- AngularJS framework and Angular-translate include -->
+		<script src="..\bower_components\angular\angular.min.js"></script>
+		<script src="..\bower_components\angular-translate\angular-translate.min.js"></script>
+		<script src="..\bower_components\angular-ui-router\release\angular-ui-router.min.js"></script>
+		<!-- Firebase and AngularFire include -->
+		<script src="..\bower_components\firebase\firebase.js"></script>
+		<script src="..\bower_components\angularfire\dist\angularfire.min.js"></script>
+		<!-- Bootstrap and my own CSS include -->
+		<link rel="stylesheet" href="..\bower_components\bootstrap\dist\css\bootstrap.min.css">
+		<link rel="stylesheet" href="css\notelist.css">
+		<link rel="stylesheet" href="css\languages.min.css">
+
+		<!-- MODEL -->
+		<script src="js/notelist.js"></script>
+    </head>
+
+    <!-- TEMPLATE -->
+    <body ng-controller = 'NoteListCtrl'>
+    	<!-- top fixed bar with new note input -->
+    	<div ui-view></div>
+    	<nav class="navbar navbar-inverse navbar-fixed-top">
+            <a class="navbar-brand" href="#">{{ 'TITLE' | translate }}</a>
+            <div ng-controller="NoteListCtrl">
+  				<button type="button" class="btn btn-default btn-sm pull-right language-button" ng-click="changeLanguage('cz')">
+  					<span class="lang-xs lang-lbl" lang="cs"></span>
+  				</button>
+  				<button type="button" class="btn btn-default btn-sm pull-right language-button" ng-click="changeLanguage('en')">
+  					<span class="lang-xs lang-lbl" lang="en"></span>
+  				</button>
+  			</div>
+            <input type="text" class="form-control" ng-model="note" ng-keydown="addNote($event)" type="text" id="noteInput"  placeholder="{{ 'INSERT' | translate }}" maxlength="200">
+         </nav>
+         <!-- container with row for all notes -->
+         <div class="container">
+         	<div class="row">
+         		<!-- not archived notes column, up to 992px two separate columns -->
+         		<div class="col-sm-12 col-md-6">
+         			<!-- iteration over all not archived notes -->
+         			<ul class="list-unstyled" ng-repeat="note in notes" ng-if="!note.archived">
+         				<li class="ui-state-default">
+         					<button type="button" class="btn btn-success btn-sm" ng-click="archiveNote(note)">
+         						<span class="glyphicon glyphicon-ok"></span>
+         					</button>
+         					<a ui-sref="{{note.$id}}"><strong>{{note.text | limitTo: 40}}{{note.text.length > 40 ? '...' : ''}}</strong></a>
+         					<button type="button" class="btn btn-danger btn-sm pull-right" ng-click="deleteNote(note)">
+         						<span class="glyphicon glyphicon-remove"></span>
+         					</button>
+         				</li>
+         			</ul>
+         			<hr>
+         		</div>
+         		<!-- archived note column, up to 992px two separate columns -->
+                <div class="col-sm-12 col-md-6">
+                    <!-- iteration over all archived notes -->
+                    <ul class="list-unstyled" ng-repeat = "note in notes" ng-if="note.archived">
+                        <li class="ui-state-default">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="archiveNote(note)">
+                                <span class="glyphicon glyphicon-open"></span>
+                            </button>
+                            <a ui-sref="{{note.$id}}"><del>{{note.text | limitTo: 40}}{{note.text.length > 40 ? '...' : ''}}</del></a>
+                            <button type="button" class="btn btn-danger btn-sm pull-right" ng-click="deleteNote(note)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>   
+        </div>
+
+    </body>
+</html>
